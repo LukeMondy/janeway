@@ -34,9 +34,9 @@
                     {% endif %}
                 {% else %}
                     {% if 'svg' in request.press_cover %}
-                        <a href="/">{% svg request.press_cover %}</a>
+                        <a href="/" onclick="cornify_add();return false;">{% svg request.press_cover %}</a>
                     {% else %}
-                        <a href="/"><img class="top-bar-image" src="{% url 'press_cover_download' %}" alt="{{ request.press.name }}"></a>
+                        <a href="/" onclick="cornify_add();return false;"><img class="top-bar-image" src="{% url 'press_cover_download' %}" alt="{{ request.press.name }}"></a>
                     {% endif %}
                 {% endif %}
 
@@ -156,6 +156,8 @@
 {% if request.press.tracking_code %}
 {{ request.press.tracking_code|safe }}
 {% endif %}
-{% block js %}{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="https://www.cornify.com/js/cornify.js"></script>
+{% endblock %}
 </body>
 </html>
