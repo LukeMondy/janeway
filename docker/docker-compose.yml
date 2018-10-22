@@ -1,0 +1,25 @@
+version: '3.2'
+
+services:
+    jwdb:
+        image: mysql:5.7
+        volumes:
+            - ./jwdb:/var/lib/mysql
+            - ./init.sql:/tmp/init.sql
+        restart: unless-stopped
+        command: --init-file /tmp/init.sql
+        environment:
+            MYSQL_ROOT_PASSWORD: ERT6HDjA9CUmctvPAUICruPz
+            MYSQL_DATABASE: jwdb
+            MYSQL_USER: janeway
+            MYSQL_PASSWORD: Swir4Y3Jr2hRtS2GYXHwZIV8
+
+    janeway:
+        depends_on:
+            - jwdb
+        image: lmondy/janeway:latest
+        ports:
+            - "80:80"
+        restart: unless-stopped
+        volumes:
+            - ./backup:/backup
